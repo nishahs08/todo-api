@@ -5,59 +5,46 @@ const User = require('./../../models/user');
 
 module.exports = {
 
-    //find all users
-
-    // index(req,res) {
-    //     User.find({})
-    //     .then(users => res.json(users))
-    //     .catch(error => res.json(error));
-    // },
-
-    //create users
-
-    // createUser(req,res){
-    //     User.create({email : req.body.email,password : req.body.password,text : req.body.text})
-    //     .then(user => res.json(user))
-    //     .catch(error => res.json(error));
-
-    // }
-
-    addTodo(req,res){
-        console.log("hello");
-        User.create({text : req.body.text})
+    findAll (req, res) {
+        User.find({ status: 1 })
             .then(user => {
-                res.json(user)
+                return res.json(user);
             })
+            .catch(err => res.json(err));
+    },
+
+    add (req, res) {
+        User.create(req.body)
+            .then(user => {
+                return res.json(user);
+            })
+            .catch(err => res.json(err));
+    },
+
+    update(req,res){
+        User.findById(req.params.id)
+            .then(user => {
+                user.text = req.body.text;
+                return user.save();
+            })
+            .then(user => res.json(user))
             .catch(error => res.json(error));
+
+        /*
+        User.findOne({ _id: req.params.id })
+            .then(user => {
+                user.text = req.body.text;
+                return user.save();
+            })
+            .then(user => res.json(user))
+            .catch(error => res.json(error));
+        */
     },
 
-    editTodo(req,res){
-        User.find({ _id : req.body._id,status : 0})
-        .then(user => res.json(user))
-        .catch(error => res.json(error));
-    },
-
-    updateTodo(req,res){
-        User.findOneAndUpdate({ _id : req.body._id},{$set: { status: 0 }})
-        .then(user => res.json(user))
-        .catch(error => res.json(error));
-        
-    },
-    
-      findAndUpdate(req,res)
-    {
-        User.findOne({_id : req.body._id})
-        .then( user => {
-            console.log('USers', user)
-            user.text = req.body.text; 
-            return user.save();
-        })
-        .then(user => {
-            console.log(user); res.json(user)
-        })
-        .catch(error => res.json(error));
+    delete (req, res) {
+        User.findByIdAndRemove(req.params.id)
+            .then(user => res.end("User removed"))
+            .catch(err => res.json(err));
     }
-    
- 
 }
 
