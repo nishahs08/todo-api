@@ -41,10 +41,11 @@ module.exports = {
         .catch(error => res.json(error));
         
     },
+    
       findAndUpdate(req,res)
     {
         User.find({_id : req.body._id})
-        .then( user => {user.text = req.body.text; return res.json(user)})
+        .then( user => {user.text = req.body.text; return User.save()}).then(user => res.json(user))
         .catch(error => res.json(error));
     }
     
