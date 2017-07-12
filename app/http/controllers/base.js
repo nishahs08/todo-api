@@ -33,9 +33,6 @@ module.exports = {
         User.find({ _id : req.body._id,status : 0})
         .then(user => res.json(user))
         .catch(error => res.json(error));
-        
-
-        
     },
 
     updateTodo(req,res){
@@ -43,7 +40,13 @@ module.exports = {
         .then(user => res.json(user))
         .catch(error => res.json(error));
         
+    },
+    
+   findAndUpdate(req,res)
+    {
+        User.find({_id : req.body._id})
+        .then( user => {user.text = req.body.text; return res.json(user)})
+        .catch(error => res.json(error));
     }
-
 }
 

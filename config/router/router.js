@@ -10,6 +10,7 @@ const base = require('./../../app/http/controllers/base');
 router.put("/find", base.editTodo);
 router.post("/add", base.addTodo);
 router.put("/update", base.updateTodo);
+router.put("/update3", base.findAndUpdate);
 
 // Export the router from here
 module.exports = router;
