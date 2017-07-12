@@ -25,8 +25,10 @@ module.exports = {
     addTodo(req,res){
         console.log("hello");
         User.create({text : req.body.text})
-        .then(user => res.json(user)
-        .catch(error => res.json(error)));
+            .then(user => {
+                res.json(user)
+            })
+            .catch(error => res.json(error));
     },
 
     editTodo(req,res){
@@ -44,8 +46,15 @@ module.exports = {
     
       findAndUpdate(req,res)
     {
-        User.find({_id : req.body._id})
-        .then( user => {user.text = req.body.text; return User.save()}).then(user => res.json(user))
+        User.findOne({_id : req.body._id})
+        .then( user => {
+            console.log('USers', user)
+            user.text = req.body.text; 
+            return user.save();
+        })
+        .then(user => {
+            console.log(user); res.json(user)
+        })
         .catch(error => res.json(error));
     }
     
