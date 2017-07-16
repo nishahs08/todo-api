@@ -50,7 +50,30 @@ module.exports = {
 
         User.findOne({ _id:id,username :username,password :password})
         .then(user => user.update({_id : id},{$set:{username:username,password:password}}))
-        .then(user => res.json(user)).catch(err => res.json(err))
+        .then(user => res.json(user)).catch(error => res.json({
+                error: {
+                    code: "E_INTERNAL_ERROR",
+                    "message": error.message
+                }
+            }))
         
-    }
+    },
+
+    delete(req,res){
+        User.findByIdAndRemove(req.params.id).then(user=>res.json(user)).catch(error => res.json({
+                error: {
+                    code: "E_INTERNAL_ERROR",
+                    "message": error.message
+                }
+            }))
+    },
+
+     getUser(req,res){
+         User.findById(req.params.id).then(user=> user.json(user)).catch(err=>res.json(err));
+     },
+
+     getAllUser(req,res){
+         User.findById({}).then(user=> user.json(user)).catch(err=>res.json(err));
+     }          
+    
 };
