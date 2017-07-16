@@ -32,7 +32,7 @@ module.exports = {
 
 
     update(req,res){
-        let id = req.body.id;
+        let id = req.params.id;
         let username = req.body.username;
         let password = req.body.password;
          let newUsername = req.body.newUsername;
@@ -49,13 +49,9 @@ module.exports = {
             });
 
 
-        User.findOne({ _id:id,username :username,password :password}).then(User.update({_id : id},{$set:{username:newUsername,password:newPassword},function(err,newUser){
-            if(err){
-                res.json("not ypdated")
-            }else{
-                res.json(res)
-            }
-        }}))
+        User.findOne({ _id:id,username :username,password :password})
+        .then(user => user.update({_id : id},{$set:{username:newUsername,password:newPassword}}))
+        .then(user => res.json(user)).catch(err => res.json(err))
         
     }
 };
