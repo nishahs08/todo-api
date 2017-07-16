@@ -35,10 +35,9 @@ module.exports = {
         let id = req.params.id;
         let username = req.body.username;
         let password = req.body.password;
-         let newUsername = req.body.newUsername;
-        let newPassword = req.body.UserPassword;
+        
 
-         if (!username || !password || !newUsername || !newPassword) // This if condition deals with error
+         if (!username || !password ) // This if condition deals with error
             res.status(400).json({
                 error: {
                     code: "E_REQUIRED_DATA_MISSING",
@@ -50,7 +49,7 @@ module.exports = {
 
 
         User.findOne({ _id:id,username :username,password :password})
-        .then(user => user.update({_id : id},{$set:{username:newUsername,password:newPassword}}))
+        .then(user => user.update({_id : id},{$set:{username:username,password:password}}))
         .then(user => res.json(user)).catch(err => res.json(err))
         
     }
