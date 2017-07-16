@@ -15,6 +15,6 @@ router.delete("/todo/:id", base.delete);
 
 // All the user related routes here
 router.post('/user', user.create);
-
+router.put("/user/:id", user.update);
 // Export the router from here
 module.exports = router;
