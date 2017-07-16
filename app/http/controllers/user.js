@@ -73,7 +73,7 @@ module.exports = {
      },
 
      getAllUser(req,res){
-         User.findById({}).then(user=> user.json(user)).catch(err=>res.json(err));
+         User.find().then(user=> user.json(user)).catch(err=>res.json(err));
      }          
     
 };
