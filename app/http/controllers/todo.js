@@ -30,11 +30,50 @@ module.exports = {
 let todoToBeRemoved = req.body.todo;
 User.findById(req.params.userId)
 .then(user => {
+    if(user.todo.indexOf(todoToBeRemoved) === -1)
+    {
+        return res.status(400).json({
+                error: {
+                    code: "E_REQUIRED_DATA_MISSING",
+                    message: "Already Deleted"
+                }
+    })}
+    else{
 user.todo.splice(user.todo.indexOf(todoToBeRemoved),1);
 return user.save();
+    }
+})
+.then(user=>res.json(user))
+.catch(error=>res.json(error));
+},
+
+
+read(req,res){
+    User.findById(req.params.userId)
+    .then(user => res.json(user.todo))
+    .catch(error => res.json(error));
+},
+
+update(req,res){
+    let updatedTodo = req.body.updatedTodo;
+    let todoToBeUpdated =req.body.todoToBeUpdated;
+    
+    User.findById(req.params.userId)
+    .then(user => {
+    if(user.todo.indexOf(todoToBeUpdated) === -1)
+    {
+        return res.status(400).json({
+                error: {
+                    code: "E_REQUIRED_DATA_MISSING",
+                    message: "Already Updated"
+                }
+    })}
+    else{
+user.todo.splice(user.todo.indexOf(todoToBeUpdated),1,updatedTodo);
+return user.save();
+    }
 })
 .then(user=>res.json(user))
 .catch(error=>res.json(error));
 }
-
 }

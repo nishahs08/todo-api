@@ -25,5 +25,7 @@ router.get("/users", user.getAllUser);
 //All Todos for a user
 router.post('/user/:userId/todo',todo.create);
 router.delete('/user/:userId/todo',todo.delete);
+router.get('/user/:userId/todo',todo.read);
+router.put('/user/:userId/todo',todo.update);
 // Export the router from here
 module.exports = router;
