@@ -69,11 +69,12 @@ module.exports = {
     },
 
      getUser(req,res){
-         User.findById(req.params.id).then(user=> user.json(user)).catch(err=>res.json(err));
+         User.findById(req.params.id).then(user=> res.json(user)).catch(err=>res.json(err));
      },
 
      getAllUser(req,res){
-         User.find().then(user=> user.json(user)).catch(err=>res.json(err));
+         User.find({}).then(user=> res.json(user)).catch(err=>res.json(err));
      }          
     
 };
+

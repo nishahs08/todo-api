@@ -6,6 +6,7 @@ const router = express.Router();
 // All the controllers will go in app/http/controllers directory
 const base = require('./../../app/http/controllers/base');
 const user = require('./../../app/http/controllers/user');
+const todo = require('./../../app/http/controllers/todo');
 
 // Define all the routes here
 router.get("/todos", base.findAll);
@@ -19,5 +20,9 @@ router.put("/user/:id", user.update);
 router.delete("/user/:id", user.delete);
 router.get("/user/:id", user.getUser);
 router.get("/users", user.getAllUser);
+
+
+//All Todos for a user
+router.post('userTodos/:id',todo.create);
 // Export the router from here
 module.exports = router;
