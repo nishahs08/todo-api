@@ -16,7 +16,7 @@ const UserSchema = new mongoose.Schema(
 
 		"todo" : {
 			type: Array
-		},
+		}
 		
 		// More complex todo schema definition here. It says that todo will be an array that will contain
 		// an object with keys title of type String and desc of type String.

@@ -9,21 +9,32 @@ module.exports = {
        let userId = req.params.userId;
 
       // Working fine
-       /*User.findByIdAndUpdate(userId, {todo: todo1}, { new: true })
+       User.findByIdAndUpdate(userId, {$push :{todo: todo1}}, { new: true })
         .then(user => res.json(user))
-        .catch(error => res.json(error));*/
+        .catch(error => res.json(error));
 
         // But use this
-       User.findById(userId)
-        .then(user => {
+    //    User.findById(userId)
+    //     .then(user => {
           // Here spreading because I am expecting todos to be passed as an array from postman.
           // Using push will keep the old todos and add new to it. Above mentioned strategy will replace
           // old todos with new one, which is bad.
-          user.todo.push(...todo1);
-          console.log(user);
-          return user.save();
-        })
-        .then(user => res.json(user))
-        .catch(err => res.json(err));
-    }
+        //   user.todo.push(...todo1);
+        //   console.log(user);
+        //   return user.save();
+        // })
+        // .then(user => res.json(user))
+        // .catch(err => res.json(err));
+    },
+   delete(req,res) {
+let todoToBeRemoved = req.body.todo;
+User.findById(req.params.id)
+.then(user => {
+user.todo.splice(user.todo.indexOf(todoToBeRemoved),1);
+return user.save();
+})
+.then(user=>res.json(user))
+.catch(error=>res.json(error));
+}
+
 }
