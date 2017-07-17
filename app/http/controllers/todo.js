@@ -28,7 +28,7 @@ module.exports = {
     },
    delete(req,res) {
 let todoToBeRemoved = req.body.todo;
-User.findById(req.params.id)
+User.findById(req.params.userId)
 .then(user => {
 user.todo.splice(user.todo.indexOf(todoToBeRemoved),1);
 return user.save();
