@@ -23,6 +23,6 @@ router.get("/users", user.getAllUser);
 
 
 //All Todos for a user
-router.post('userTodos/:id',todo.create);
+router.post('/user/:userId/todo',todo.create);
 // Export the router from here
 module.exports = router;
