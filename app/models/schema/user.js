@@ -4,6 +4,15 @@ const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema(
 	{
+		"ip":{
+			 type : String,
+			 unique : true
+		},
+	    "randomUser" :{
+			type : String,
+			unique : true
+		},
+
         "username" :{
             type: String,
         },

@@ -7,7 +7,8 @@ const router = express.Router();
 const base = require('./../../app/http/controllers/base');
 const user = require('./../../app/http/controllers/user');
 const todo = require('./../../app/http/controllers/todo');
-
+const randomUser = require('./../../app/http/controllers/randomUser');
+const randomUserTodo = require('./../../app/http/controllers/randomUserTodo');
 // Define all the routes here
 router.get("/todos", base.findAll);
 router.post("/todo", base.add);
@@ -22,10 +23,17 @@ router.get("/user/:id", user.getUser);
 router.get("/users", user.getAllUser);
 
 
+
 //All Todos for a user
 router.post('/user/:userId/todo',todo.create);
 router.delete('/user/:userId/todo',todo.delete);
 router.get('/user/:userId/todo',todo.read);
 router.put('/user/:userId/todo',todo.update);
+
+//All RandomUsers
+router.post('/randomUser',randomUser.create);
+router.post('/randomUser/:randomString/todo',randomUserTodo.create);
+
 // Export the router from here
+
 module.exports = router;

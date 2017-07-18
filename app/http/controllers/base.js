@@ -6,7 +6,7 @@ const User = require('./../../models/user');
 module.exports = {
 
     findAll (req, res) {
-        User.find({ status: 1 })
+        User.find({ })
             .then(user => {
                 return res.json(user);
             })
