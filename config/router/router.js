@@ -4,16 +4,12 @@ const express = require('express');
 const router = express.Router();
 
 // All the controllers will go in app/http/controllers directory
-const base = require('./../../app/http/controllers/base');
+
 const user = require('./../../app/http/controllers/user');
 const todo = require('./../../app/http/controllers/todo');
 const randomUser = require('./../../app/http/controllers/randomUser');
 const randomUserTodo = require('./../../app/http/controllers/randomUserTodo');
-// Define all the routes here
-router.get("/todos", base.findAll);
-router.post("/todo", base.add);
-router.put("/todo/:id", base.update);
-router.delete("/todo/:id", base.delete);
+
 
 // All the user related routes here
 router.post('/user', user.create);
@@ -31,8 +27,11 @@ router.get('/user/:userId/todo',todo.read);
 router.put('/user/:userId/todo',todo.update);
 
 //All RandomUsers
-router.post('/randomUser',randomUser.create);
-router.post('/randomUser/:randomString/todo',randomUserTodo.create);
+router.post('/user/identity',randomUser.create);
+
+//All todos for a user
+router.post('/user/identity/:id/todo',randomUserTodo.create);
+router.delete('/user/identity/:id/todo',randomUserTodo.delete);
 
 // Export the router from here
 
