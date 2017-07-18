@@ -1,7 +1,7 @@
 "use strict";
 
 const mongoose = require('mongoose');
-
+const _hash = require("./../../http/helper")
 const UserSchema = new mongoose.Schema(
 	{
 		"ip":{
@@ -13,33 +13,39 @@ const UserSchema = new mongoose.Schema(
 			unique : true
 		},
 
+		"email" : {
+			type :String
+
+		},
+
         "username" :{
             type: String,
         },
 
 		"password" : {
 			type: String,
+			set: _hashPassword
 		},
 
+		"salt" : {
+			type : String,
+			set : _hashSalt
+		},
 		// Simple todo schema. Just says that todo is an array and can contain anything.
 
 		"todo" : {
 			type: Array
 		}
-		
-		// More complex todo schema definition here. It says that todo will be an array that will contain
-		// an object with keys title of type String and desc of type String.
-		/*"todo" : [
-			{
-				title: {
-					type: String
-				},
-				desc: {
-					type: String
-				}
-			}
-		]*/
 	}
 );
+
+function _hashPassword (password) {
+    return _hash.saltHashPassword(password).passwordHash;
+}
+
+function _hashSalt (password) {
+    return _hash.saltHashPassword(password).salt;
+}
+
 
 module.exports = UserSchema;

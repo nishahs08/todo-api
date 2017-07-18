@@ -24,6 +24,7 @@ router.get("/users", user.getAllUser);
 router.post('/user/:userId/todo',todo.create);
 router.delete('/user/:userId/todo',todo.delete);
 router.get('/user/:userId/todo',todo.read);
+
 router.put('/user/:userId/todo',todo.update);
 
 //All RandomUsers
@@ -32,7 +33,8 @@ router.post('/user/identity',randomUser.create);
 //All todos for a user
 router.post('/user/identity/:id/todo',randomUserTodo.create);
 router.delete('/user/identity/:id/todo',randomUserTodo.delete);
-
+router.put('/user/identity/:id/todo',randomUserTodo.update);
+router.get('/user/identity/:id/todo',randomUserTodo.get);
 // Export the router from here
 
 module.exports = router;
