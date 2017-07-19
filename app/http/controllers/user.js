@@ -2,7 +2,7 @@
 
 const User = require('./../../models/user');
 const _hash = require('./../helper/hash');
-const validator = require("email-validator");
+const _validator = require('./../helper/validator');
 module.exports = {
     
     getUserId (req, res) {
@@ -48,6 +48,8 @@ module.exports = {
         User.findById(req.params.userId)
             .then(user => {
                 for (let key in data) {
+                    if (key === "email" && !_validator.isValidEmail(data[key]))
+                        throw new Error('Email is not valid');
                     user[key] = data[key];
                 }
                 return user.save();
