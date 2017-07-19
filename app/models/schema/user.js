@@ -20,22 +20,31 @@ const UserSchema = new mongoose.Schema(
 			set: _hashPassword
 		},
 
-		"salt" : {
-			type : String,
-			set : _hashSalt
-		},
-		// Simple todo schema. Just says that todo is an array and can contain anything.
-
-		"todo" : {
-			"title" : {type : String},
-			"description" : {type : String},
-			"status" : {
-        				type: String,
-        				enum : ['Pending','Completed','In Progress'],
-        				default: 'Pending'
-    			},
-			"archived" : {type :String}
-		}
+		"todos" : [
+			{
+				title: {
+					type: String,
+					required: true
+				},
+				description: {
+					type: String,
+					default: null
+				},
+				status: {
+					type: String,
+					enum: ['pending', 'completed', 'in-progress'],
+					default: 'pending'
+				},
+				archived: {
+					type: Boolean,
+					default: false
+				}
+			}
+		]
+	},
+	{
+		timestamps: true,
+		versionKey: false
 	}
 );
 
