@@ -9,9 +9,12 @@ module.exports = {
      req.connection.remoteAddress || 
      req.socket.remoteAddress ||
      req.connection.socket.remoteAddress;
-     let todo1 =req.body.todo;
+     let title =req.body.title;
+     let description =req.body.description;
+     let status =req.body.status;
+     let archived =req.body.archived;
      console.log(req.params.id,"dddddddddddf")
-        User.findByIdAndUpdate( req.params.id , {$push : {todo : todo1}},{new:true})
+        User.findByIdAndUpdate( req.params.id , {$push :{todo :{title : title,description : description, status:status, archived: archived}}},{new:true})
         .then(user =>res.json(user))
         .catch(error => res.json(error));
     },

@@ -1,29 +1,22 @@
 "use strict";
 
 const mongoose = require('mongoose');
-const _hash = require("./../../http/helper")
+const _hash = require("./../../http/helper/hash")
 const UserSchema = new mongoose.Schema(
 	{
-		"ip":{
+		"custom_id":{
 			 type : String,
 			 unique : true
 		},
-	    "randomUser" :{
-			type : String,
-			unique : true
-		},
 
 		"email" : {
-			type :String
-
+			type :String,
+			default: null
 		},
-
-        "username" :{
-            type: String,
-        },
 
 		"password" : {
 			type: String,
+			default: null,
 			set: _hashPassword
 		},
 
@@ -34,18 +27,22 @@ const UserSchema = new mongoose.Schema(
 		// Simple todo schema. Just says that todo is an array and can contain anything.
 
 		"todo" : {
-			type: Array
+			"title" : {type : String},
+			"description" : {type : String},
+			"status" : {
+        				type: String,
+        				enum : ['Pending','Completed','In Progress'],
+        				default: 'Pending'
+    			},
+			"archived" : {type :String}
 		}
 	}
 );
 
 function _hashPassword (password) {
-    return _hash.saltHashPassword(password).passwordHash;
+    let a = _hash.generateHashSyncFor(password);
+	console.log('inside hash password', a);
+	return a;
 }
-
-function _hashSalt (password) {
-    return _hash.saltHashPassword(password).salt;
-}
-
 
 module.exports = UserSchema;

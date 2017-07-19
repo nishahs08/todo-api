@@ -7,34 +7,14 @@ const router = express.Router();
 
 const user = require('./../../app/http/controllers/user');
 const todo = require('./../../app/http/controllers/todo');
-const randomUser = require('./../../app/http/controllers/randomUser');
-const randomUserTodo = require('./../../app/http/controllers/randomUserTodo');
 
+router.get('/user/identity', user.getUserId);
+router.put('/user/:userId', user.update);
+router.delete('/user/:userId', user.delete);
 
-// All the user related routes here
-router.post('/user', user.create);
-router.put("/user/:id", user.update);
-router.delete("/user/:id", user.delete);
-router.get("/user/:id", user.getUser);
-router.get("/users", user.getAllUser);
-
-
-
-//All Todos for a user
-router.post('/user/:userId/todo',todo.create);
-router.delete('/user/:userId/todo',todo.delete);
-router.get('/user/:userId/todo',todo.read);
-
-router.put('/user/:userId/todo',todo.update);
-
-//All RandomUsers
-router.post('/user/identity',randomUser.create);
-
-//All todos for a user
-router.post('/user/identity/:id/todo',randomUserTodo.create);
-router.delete('/user/identity/:id/todo',randomUserTodo.delete);
-router.put('/user/identity/:id/todo',randomUserTodo.update);
-router.get('/user/identity/:id/todo',randomUserTodo.get);
-// Export the router from here
+router.get('/user/:userId/todos', todo.getAll);
+router.post('/user/:userId/todos', todo.create);
+router.put('/user/:userId/todo/:todoTitle', todo.update);
+router.delete('/user/:userId/todo/:todoTitle', todo.delete);
 
 module.exports = router;
