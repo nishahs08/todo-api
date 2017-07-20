@@ -74,10 +74,12 @@ module.exports = {
     delete (req, res) {
         User.findById(req.params.id)
         .then(user =>{
-            user.todos.foreach(function(todo){
+            user.todos.foreach(function(todo,index){
+               
                  if(todo.title === req.params.title){
-                     user.todos.splice(todo,1);
+                   user.todos.splice(index,1) 
             }
+            
             
             return user.save();
         })})
