@@ -14,7 +14,7 @@ router.delete('/user/:userId', user.delete);
 
 router.get('/user/:userId/todos', todo.getAll);
 router.post('/user/:userId/todos', todo.create);
-router.put('/user/:userId/todo/:todoTitle', todo.update);
-router.delete('/user/:userId/todo/:todoTitle', todo.delete);
+router.put('/user/:userId/todo/:title', todo.update);
+router.delete('/user/:userId/todo/:title', todo.delete);
 
 module.exports = router;
