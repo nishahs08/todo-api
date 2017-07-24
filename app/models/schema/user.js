@@ -32,12 +32,16 @@ const UserSchema = new mongoose.Schema(
 				},
 				status: {
 					type: String,
-					enum: ['pending', 'completed', 'in-progress'],
+					enum: ['pending', 'completed'],
 					default: 'pending'
 				},
 				archived: {
 					type: Boolean,
 					default: false
+				},
+				dateAdded: {
+					type: Date,
+					default: Date.now()
 				}
 			}
 		]

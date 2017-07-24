@@ -9,7 +9,7 @@ module.exports = {
         .then(user => res.json({
             data: user.todos,
             success: true,
-            message: 'User created'
+            message: 'User todos fetched'
         }))
         .catch(err => res.status(500).json({
             error: {
@@ -62,7 +62,7 @@ module.exports = {
         .then(user => res.json({
             data: user,
             success: true,
-            message: 'User created'
+            message: 'User todo updated'
         }))
         .catch(err => res.status(500).json({
             error: {
@@ -84,6 +84,11 @@ module.exports = {
                 return user.save();
             })
         })
+        .then(user => res.json({
+            data: null,
+            success: true,
+            message: 'User todo deleted'
+        }))
         .catch(err => res.status(500).json({
             error: {
                 code: err.code || 'E_SERVER_ERROR',
