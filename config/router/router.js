@@ -8,6 +8,10 @@ const router = express.Router();
 const user = require('./../../app/http/controllers/user');
 const todo = require('./../../app/http/controllers/todo');
 
+router.get('', function (req, res) {
+    res.json('Love you donkey');
+});
+
 router.get('/user/identity', user.getUserId);
 router.put('/user/:userId', user.update);
 router.delete('/user/:userId', user.delete);
