@@ -9,7 +9,7 @@ const user = require('./../../app/http/controllers/user');
 const todo = require('./../../app/http/controllers/todo');
 
 router.get('', function (req, res) {
-    res.json('Welcome to todo api');
+    res.json('Todo API - v1');
 });
 
 router.get('/user/identity', user.getUserId);
